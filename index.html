@@ -1,1 +1,269 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>00 VENOM | TITAN AI SUPREMACY V38.0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@200;400;600;800&family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;700&display=swap');
 
+        /* FUNDAMENTY SYSTEMU TITAN */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; cursor: crosshair; }
+        
+        :root { 
+            --v-red: #ff0000; 
+            --v-red-glow: rgba(255, 0, 0, 0.6); 
+            --v-black: #020202; 
+            --v-purple: #8a2be2;
+            --v-purple-glow: rgba(138, 43, 226, 0.6);
+            --v-border: rgba(255, 255, 255, 0.07);
+            --v-glass: rgba(255, 255, 255, 0.02);
+        }
+
+        body { 
+            background: var(--v-black); 
+            color: #fff; 
+            font-family: 'Poppins', sans-serif; 
+            overflow: hidden; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* ANIMOWANE TŁO CZĄSTECZKOWE */
+        #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.4; }
+        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: rgba(255, 0, 0, 0.1); z-index: 1000; pointer-events: none; animation: scan 4s linear infinite; }
+        @keyframes scan { 0% { top: -2%; } 100% { top: 102%; } }
+
+        /* GÓRNY MODUŁ STEROWANIA */
+        header { 
+            height: 90px; 
+            background: rgba(0, 0, 0, 0.9); 
+            border-bottom: 2px solid var(--v-red); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 40px; 
+            backdrop-filter: blur(25px); 
+            z-index: 100;
+        }
+
+        .brand { font-family: 'Syncopate'; font-size: 28px; letter-spacing: 10px; font-weight: 900; background: linear-gradient(90deg, #fff, var(--v-red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .status-badge { font-family: 'Orbitron'; font-size: 10px; padding: 8px 20px; border-radius: 50px; border: 1px solid var(--v-red); color: var(--v-red); text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 0 15px var(--v-red-glow); }
+
+        /* GŁÓWNA STRUKTURA */
+        .main-frame { display: flex; flex: 1; overflow: hidden; }
+
+        /* MODUŁ NAWIGACJI BOCZNEJ */
+        nav { 
+            width: 320px; 
+            background: rgba(5, 5, 5, 0.95); 
+            border-right: 1px solid var(--v-border); 
+            padding: 30px 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
+
+        .nav-btn { 
+            padding: 16px 20px; border-radius: 12px; background: var(--v-glass); border: 1px solid transparent; 
+            color: #666; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; 
+            transition: 0.4s; cursor: pointer; display: flex; align-items: center; gap: 15px; text-decoration: none;
+        }
+
+        .nav-btn:hover { color: #fff; background: rgba(255,255,255,0.05); transform: translateX(8px); }
+        .nav-btn.active { background: var(--v-red); color: #fff; box-shadow: 0 0 20px var(--v-red-glow); }
+
+        .ai-special-btn { color: var(--v-purple); border-left: 3px solid var(--v-purple); }
+        .ai-special-btn.active, .ai-special-btn:hover { background: var(--v-purple); color: #fff; box-shadow: 0 0 20px var(--v-purple-glow); }
+
+        /* MODUŁ TREŚCI */
+        content { flex: 1; padding: 50px; overflow-y: auto; scroll-behavior: smooth; }
+        .panel { display: none; animation: entry 0.5s ease-out; }
+        .panel.active { display: block; }
+        @keyframes entry { from { opacity: 0; transform: scale(0.98) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* MODUŁ PROFILU */
+        .profile-card { 
+            background: linear-gradient(135deg, rgba(20,20,20,0.8), rgba(5,5,5,0.9)); 
+            padding: 50px; border-radius: 30px; border: 1px solid var(--v-red); 
+            display: flex; align-items: center; gap: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+
+        .pfp-img { width: 180px; height: 180px; border-radius: 25px; border: 3px solid #fff; box-shadow: 0 0 30px var(--v-red-glow); transition: 0.5s; }
+        .pfp-img:hover { transform: rotate(3deg) scale(1.05); filter: hue-rotate(15deg); }
+
+        .profile-info h1 { font-family: 'Orbitron'; font-size: 50px; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px; }
+        .profile-info p { color: #888; letter-spacing: 4px; font-weight: 800; font-size: 14px; }
+
+        /* MODUŁ WIDEO */
+        .grid-yt { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
+        .yt-item { background: var(--v-glass); padding: 15px; border-radius: 20px; border: 1px solid var(--v-border); transition: 0.3s; cursor: pointer; }
+        .yt-item:hover { border-color: var(--v-red); transform: translateY(-10px); background: rgba(255,0,0,0.05); }
+        .yt-item img { width: 100%; border-radius: 12px; margin-bottom: 15px; filter: grayscale(0.2); transition: 0.3s; }
+        .yt-item:hover img { filter: grayscale(0); }
+        .yt-item h3 { font-family: 'Orbitron'; font-size: 13px; color: #ccc; }
+
+        /* RDZEŃ VENOM AI - ULTIMATE INTERFACE */
+        .ai-core { 
+            height: 75vh; background: rgba(5, 5, 10, 0.9); border-radius: 30px; 
+            border: 1px solid var(--v-purple); overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 0 60px rgba(138, 43, 226, 0.1);
+        }
+
+        .ai-monitor { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; font-family: 'JetBrains Mono', monospace; }
+        .ai-bubble { max-width: 80%; padding: 15px 20px; border-radius: 18px; font-size: 14px; position: relative; line-height: 1.6; }
+        .ai-bubble.bot { align-self: flex-start; background: rgba(138, 43, 226, 0.1); border: 1px solid var(--v-purple); color: #d1afff; }
+        .ai-bubble.usr { align-self: flex-end; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+
+        .ai-controls { padding: 25px; background: rgba(0,0,0,0.8); display: flex; gap: 15px; border-top: 1px solid var(--v-border); }
+        .ai-input { flex: 1; padding: 18px 25px; background: #000; border: 1px solid var(--v-border); border-radius: 50px; color: #fff; font-family: 'JetBrains Mono'; outline: none; transition: 0.3s; }
+        .ai-input:focus { border-color: var(--v-purple); box-shadow: 0 0 20px var(--v-purple-glow); }
+        .ai-send { padding: 0 35px; background: var(--v-purple); color: #fff; border: none; border-radius: 50px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        .ai-send:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--v-purple); }
+
+        /* STOPKA */
+        footer { height: 50px; background: #000; border-top: 1px solid var(--v-border); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #444; font-weight: 900; letter-spacing: 3px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="scanline"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <div class="brand">00 VENOM</div>
+        <div class="status-badge">AI PROTOCOL: ACTIVE 🔒</div>
+    </header>
+
+    <div class="main-frame">
+        <nav>
+            <div class="nav-btn active" onclick="tab('h', this)">🏠 PANEL GŁÓWNY</div>
+            <div class="nav-btn" onclick="tab('y', this)">🎬 TWOJE FILMY</div>
+            <div class="nav-btn ai-special-btn" onclick="tab('a', this)">🤖 VENOM AI CORE</div>
+            <a href="https://www.twitch.tv/niedasievenom" target="_blank" class="nav-btn" style="color:#9146ff">💜 TWITCH LIVE</a>
+            <a href="https://spydersammy2021-lab.github.io/Mini-Game/" target="_blank" class="nav-btn" style="color:#00ff41">🎮 URUCHOM GRĘ</a>
+            <a href="https://pl.pinterest.com/search/pins/?q=kolorowe%20tapety%20na%20telefon" target="_blank" class="nav-btn" style="color:#e60023">🖼️ TAPETY PINTEREST</a>
+            <div class="nav-btn" style="margin-top:auto; color:red" onclick="admin()">⚙️ KONFIGURACJA</div>
+        </nav>
+
+        <content>
+            <section id="h" class="panel active">
+                <div class="profile-card">
+                    <div class="pfp-wrap">
+                        <img src="https://raw.githubusercontent.com/spydersammy2021-lab/venomtube/main/pro.png" class="pfp-img" alt="Venom">
+                    </div>
+                    <div class="profile-info">
+                        <p>ID: 00_VENOM_LEADER</p>
+                        <h1>Venom</h1>
+                        <div style="display:flex; gap:15px; margin-top:15px;">
+                            <span style="background:var(--v-red); padding:4px 12px; border-radius:4px; font-weight:900; font-size:10px;">TOP 1 RIVALS PL</span>
+                            <span style="border:1px solid #444; padding:4px 12px; border-radius:4px; font-size:10px; color:#aaa;">394 SUBSCRIBERS</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="y" class="panel">
+                <h2 style="font-family:'Orbitron'; margin-bottom:30px; letter-spacing:5px;">DATABASE_VIDEOS</h2>
+                <div class="grid-yt">
+                    <div class="yt-item" onclick="window.open('https://www.youtube.com/watch?v=nsm-IiKL778')">
+                        <img src="https://i.ytimg.com/vi/nsm-IiKL778/maxresdefault.jpg">
+                        <h3>Gramy w Rivals pierwszy odcinek</h3>
+                    </div>
+                    <div class="yt-item" onclick="window.open('https://www.youtube.com/watch?v=GbunKlpuLhM')">
+                        <img src="https://i.ytimg.com/vi/GbunKlpuLhM/maxresdefault.jpg">
+                        <h3>Czitowanie w Rivals</h3>
+                    </div>
+                    <div class="yt-item" onclick="window.open('https://www.youtube.com/watch?v=5VoQrhNo_s0')">
+                        <img src="https://i.ytimg.com/vi/5VoQrhNo_s0/maxresdefault.jpg">
+                        <h3>W Prosty Sposób Na Latanie</h3>
+                    </div>
+                    <div class="yt-item" onclick="window.open('https://www.youtube.com/watch?v=RGDG-7EFFBk')">
+                        <img src="https://i.ytimg.com/vi/RGDG-7EFFBk/maxresdefault.jpg">
+                        <h3>Poradnik Na Cheaty Do Rivals</h3>
+                    </div>
+                </div>
+            </section>
+
+            <section id="a" class="panel">
+                <div class="ai-core">
+                    <div style="background:#000; padding:20px 30px; border-bottom:1px solid var(--v-purple); display:flex; justify-content:space-between;">
+                        <span style="font-family:'Orbitron'; color:var(--v-purple); font-weight:900;">VENOM_AI_OS_V1.0</span>
+                        <span style="color:#444; font-size:10px;">LATENCY: 12ms</span>
+                    </div>
+                    <div class="ai-monitor" id="mon">
+                        <div class="ai-bubble bot">Połączenie ustanowione. System Venom AI Core gotowy do operacji TITAN. Jakie dane chcesz dzisiaj przeanalizować?</div>
+                    </div>
+                    <div class="ai-controls">
+                        <input type="text" id="ai-in" class="ai-input" placeholder="Wprowadź komendę...">
+                        <button class="ai-send" onclick="ask()">SEND</button>
+                    </div>
+                </div>
+            </section>
+        </content>
+    </div>
+
+    <footer>WYGENEROWANO PRZEZ VENOM AI • TITAN SUPREMACY 2026</footer>
+
+    <script>
+        // LOGIKA ZAKŁADEK
+        function tab(name, btn) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(name).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // LOGIKA CZATU AI
+        function ask() {
+            const input = document.getElementById('ai-in');
+            const mon = document.getElementById('mon');
+            if(!input.value.trim()) return;
+
+            const u = document.createElement('div');
+            u.className = 'ai-bubble usr';
+            u.innerText = input.value;
+            mon.appendChild(u);
+            
+            const q = input.value.toLowerCase();
+            input.value = "";
+            mon.scrollTop = mon.scrollHeight;
+
+            setTimeout(() => {
+                const b = document.createElement('div');
+                b.className = 'ai-bubble bot';
+                if(q.includes('rivals')) b.innerText = "Raport Rivals: Przewaga taktyczna 00 Venoma wynosi 98%. Wykryto optymalne ścieżki latania.";
+                else if(q.includes('sub')) b.innerText = "Analiza wzrostu: Cel 400 subskrypcji zostanie osiągnięty wkrótce. Legion rośnie.";
+                else b.innerText = "Dane przetworzone. System Venom AI zsynchronizowany z bazą TITAN.";
+                mon.appendChild(b);
+                mon.scrollTop = mon.scrollHeight;
+            }, 800);
+        }
+
+        // ADMIN
+        function admin() { if(prompt("ACCESS CODE:") === "skibidimasło") window.location.href="https://studio.youtube.com"; }
+
+        // TŁO CZĄSTECZKOWE
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let dots = [];
+        for(let i=0; i<80; i++) dots.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2});
+        function anim() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "rgba(255,0,0,0.5)";
+            dots.forEach(d => {
+                ctx.beginPath(); ctx.arc(d.x, d.y, d.s, 0, Math.PI*2); ctx.fill();
+                d.y -= d.s*0.5; if(d.y < 0) d.y = canvas.height;
+            });
+            requestAnimationFrame(anim);
+        }
+        anim();
+
+        document.getElementById('ai-in').onkeypress = (e) => { if(e.key === 'Enter') ask(); };
+    </script>
+</body>
+</html>
