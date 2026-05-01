@@ -1,183 +1,81 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!view-source>
+<!doctype html>
+<html lang="pl" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <title>VENOM AI | SYMBIOTE PRIME</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;700&display=swap" rel="stylesheet">
+    <title>Gemini - Podgląd Konfiguracji</title>
+    <base href="https://gemini.google.com/">
+    
+    <!-- Metadane i linki do zasobów -->
+    <meta name="viewport" content="initial-scale=1,minimum-scale=1,width=device-width,viewport-fit=cover">
+    <link rel="icon" href="https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg">
+    
     <style>
-        :root {
-            --v-red: #ff003c;
-            --v-purple: #4d0099;
-            --v-glow: 0 0 20px rgba(255, 0, 60, 0.6);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #131314;
+            color: #e3e3e3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
         }
-
-        body, html {
-            margin: 0; padding: 0; height: 100vh;
-            background: #000; color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            overflow: hidden; display: flex; justify-content: center; align-items: center;
+        .container {
+            background: #1e1f20;
+            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            max-width: 600px;
         }
-
-        /* Tło z efektem głębi */
-        .bg {
-            position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1a0005 0%, #000 100%);
-            z-index: -1;
+        .sparkle {
+            width: 50px;
+            margin-bottom: 20px;
         }
-
-        /* Efekt szkła - Glassmorphism */
-        #venom-ui {
-            width: 90%; max-width: 1000px; height: 85vh;
-            background: rgba(15, 15, 15, 0.8);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 0, 60, 0.3);
-            border-radius: 30px;
-            display: flex; flex-direction: column;
-            box-shadow: 0 0 100px rgba(0,0,0,1), var(--v-glow);
-            animation: fadeIn 1s ease-in-out;
+        h1 { color: #fff; font-weight: 400; }
+        p { color: #b4b4b4; line-height: 1.6; }
+        .status {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 16px;
+            background: #333537;
+            border-radius: 50px;
+            font-size: 14px;
         }
-
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-        header {
-            padding: 25px; text-align: center;
-            border-bottom: 1px solid rgba(255, 0, 60, 0.3);
-        }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif; margin: 0;
-            font-size: 2.2rem; letter-spacing: 12px;
-            color: var(--v-red); text-shadow: var(--v-glow);
-        }
-
-        #chat-flow {
-            flex: 1; padding: 30px; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 20px;
-            scrollbar-width: thin; scrollbar-color: var(--v-red) transparent;
-        }
-
-        .bubble {
-            padding: 15px 25px; border-radius: 20px;
-            max-width: 75%; font-size: 1.1rem;
-            line-height: 1.4; transition: 0.3s;
-        }
-
-        .venom-msg {
-            align-self: flex-start;
-            background: rgba(255, 0, 60, 0.1);
-            border: 1px solid var(--v-red);
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
-            border-bottom-left-radius: 2px;
-        }
-
-        .user-msg {
-            align-self: flex-end;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-bottom-right-radius: 2px;
-        }
-
-        .controls {
-            padding: 30px; display: flex; gap: 15px;
-            background: rgba(0,0,0,0.5);
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
-        }
-
-        input {
-            flex: 1; background: rgba(255, 255, 255, 0.05);
-            border: 1px solid #444; padding: 18px 25px;
-            color: #fff; border-radius: 50px;
-            font-family: 'Rajdhani'; font-size: 1.2rem; outline: none;
-        }
-
-        input:focus { border-color: var(--v-red); box-shadow: 0 0 15px rgba(255, 0, 60, 0.3); }
-
-        button {
-            background: var(--v-red); border: none;
-            padding: 0 35px; border-radius: 50px;
-            color: white; font-weight: bold; cursor: pointer;
-            transition: 0.3s; text-transform: uppercase;
-            font-family: 'Orbitron';
-        }
-
-        button:hover { transform: scale(1.1); box-shadow: var(--v-glow); }
-
     </style>
+
+    <script nonce="J2B06GOWfuGZfgK65vqK4A">
+        /* TWOJA BAZA DANYCH WIZ_GLOBAL */
+        window.WIZ_global_data = {
+            "AEJOSc": false,
+            "ARR9x": false,
+            "AfY8Hf": false,
+            "DnVkpd": "Co to za roślina i jak ją pielęgnować?...", 
+            "GK6dn": "https://geminiweb-pa.clients6.google.com",
+            "RL9Dob": [
+                "poradzi, jak wytłumaczyć dziecku, dlaczego Słońce jest żółte",
+                "podpowie Ci, jak zacząć malować akwarelami",
+                "przygotuje 2-dniowy plan wycieczki do Londynu",
+                "napisze tekst piosenki o Bieszczadach"
+            ],
+            "SNlM0e": "AJrheLXdQHT5IMqFttVOIPKbxKGU:1777659195768"
+        };
+        console.log("Dane konfiguracyjne załadowane pomyślnie.");
+    </script>
 </head>
 <body>
 
-<div class="bg"></div>
-
-<div id="venom-ui">
-    <header>
-        <h1>VENOM AI</h1>
-        <div style="font-size: 0.7rem; color: #888; letter-spacing: 4px; margin-top: 5px;">WE ARE ONE | NO SUBSCRIPTION | MIAMI V2</div>
-    </header>
-
-    <div id="chat-flow">
-        <div class="bubble venom-msg">Zasoby aktywne. Jesteśmy gotowi na Twoje rozkazy. Co dziś zniszczymy?</div>
-    </div>
-
-    <div class="controls">
-        <input type="text" id="userInput" placeholder="Przekaż myśl..." onkeypress="if(event.key==='Enter') send()">
-        <button onclick="send()">Nadaj</button>
-    </div>
-</div>
-
-<script>
-    // Twój zweryfikowany klucz z obrazka image_30db71.png
-    const API_KEY = "AIzaSyDooQArEfqnsTGo-W4BCvYrbGO7Bu1sEIs"; 
-    // Stabilny endpoint v1
-    const URL = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent";
-
-    async function send() {
-        const input = document.getElementById('userInput');
-        const flow = document.getElementById('chat-flow');
-        const text = input.value.trim();
-
-        if (!text) return;
-
-        // Twoja wiadomość
-        const uBox = document.createElement('div');
-        uBox.className = 'bubble user-msg';
-        uBox.textContent = text;
-        flow.appendChild(uBox);
+    <div class="container">
+        <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg" alt="Gemini" class="sparkle">
+        <h1>Szkielet Gemini załadowany</h1>
+        <p>Ten plik zawiera Twoją unikalną konfigurację <strong>WIZ_global_data</strong>. <br> 
+           Jest to baza tekstów, podpowiedzi i kluczy API, które pozwalają aplikacji działać w Twojej przeglądarce.</p>
         
-        input.value = '';
-        flow.scrollTop = flow.scrollHeight;
-
-        try {
-            const response = await fetch(`${URL}?key=${API_KEY}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: "Jesteś mrocznym Venomem. Używaj formy 'My'. Odpowiadaj krótko i mrocznie. Użytkownik: " + text }] }]
-                })
-            });
-
-            const data = await response.json();
-            const vBox = document.createElement('div');
-            vBox.className = 'bubble venom-msg';
-
-            if (data.error) {
-                vBox.style.borderColor = "yellow";
-                vBox.textContent = "BŁĄD SYSTEMU: " + data.error.message;
-            } else {
-                vBox.textContent = data.candidates[0].content.parts[0].text;
-            }
-
-            flow.appendChild(vBox);
-        } catch (err) {
-            const eBox = document.createElement('div');
-            eBox.className = 'bubble venom-msg';
-            eBox.style.borderColor = "orange";
-            eBox.textContent = "SYNCHRONIZACJA PRZERWANA. SPRAWDŹ POŁĄCZENIE LUB CORS.";
-            flow.appendChild(eBox);
-        }
-
-        flow.scrollTop = flow.scrollHeight;
-    }
-</script>
+        <div class="status">
+            Status: Dane konfiguracyjne są w pamięci pliku.
+        </div>
+    </div>
 
 </body>
 </html>
