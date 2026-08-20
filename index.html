@@ -538,12 +538,6 @@
     </div>
 
     <script>
-        // ========================================================
-        // TUTAJ WKLEJ SWÓJ KLUCZ API GOOGLE GEMINI Z GOOGLE AI STUDIO:
-        // ========================================================
-        const API_KEY = "api";
-        const MODEL_NAME = "gemini-3.6-flash";
-
         let chatHistory = [];
         let userName = localStorage.getItem('QYSD_USER_NAME') || "Użytkownik";
 
@@ -601,10 +595,6 @@
             const text = input.value.trim();
 
             if (!text) return;
-            if (!API_KEY || API_KEY === "TUTAJ_WKLEJ_SWOJ_KLUCZ_API") {
-                alert("Nie wklejono klucza API! Zamień 'TUTAJ_WKLEJ_SWOJ_KLUCZ_API' na swój właściwy klucz.");
-                return;
-            }
 
             const heroSection = document.getElementById('hero-section');
             if (heroSection) heroSection.remove();
@@ -626,7 +616,8 @@
             const loadingDiv = appendTypingIndicator();
 
             try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`, {
+                // Bezpieczny strzał do Twojej własnej funkcji na Vercelu:
+                const res = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ contents: chatHistory })
@@ -645,13 +636,13 @@
 
                     appendMessage(aiResponse, 'ai');
                 } else if (data.error) {
-                    appendMessage(`Błąd API: ${data.error.message}`, 'ai');
+                    appendMessage(`Błąd API: ${data.error.message || JSON.stringify(data.error)}`, 'ai');
                 } else {
                     appendMessage("Nie udało się uzyskać odpowiedzi od AI.", 'ai');
                 }
             } catch (err) {
                 loadingDiv.remove();
-                appendMessage("Błąd połączenia z siecią lub nieprawidłowy klucz API.", 'ai');
+                appendMessage("Błąd połączenia z serwerem.", 'ai');
             }
         }
 
