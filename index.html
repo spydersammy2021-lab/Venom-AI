@@ -11,12 +11,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Qysd AI">
 
-    <!-- Ikony aplikacji (dla iOS/Safari i starszych przeglądarek) -->
+    <!-- Ikony aplikacji -->
     <link rel="apple-touch-icon" href="image_1.png">
     <link rel="icon" type="image/png" sizes="192x192" href="image_1.png">
     
-    <!-- Dane Manifestu PWA osadzone jako Data URL dla prostoty -->
-    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJkZWZhdWx0X2xvY2FsZSI6ICJwbCIsCiAgIm5hbWUiOiAiUXlzZCBABSIsCiAgInNob3J0X25hbWUiOiAiUXlzZCBBSSIsCiAgImRlc2NyaXB0aW9uIjogIkFwbGlrYWNqYSBReXNkIEFJIiw  iaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiaW1hZ2VfMS5wbmciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0KICBdLAogICJzdGFydF91cmwiOiAiLmluZGV4Lmh0bWwiLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGRjhDMDAiLAogICJ0aGVtZV9jb2xvciI6ICIjRkY4QzAwIgp9Cgo=">
+    <!-- Dane Manifestu PWA osadzone jako Data URL -->
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJkZWZhdWx0X2xvY2FsZSI6ICJwbCIsCiAgIm5hbWUiOiAiUXlzZCBABSIsCiAgInNob3J0X25hbWUiOiAiUXlzZCBBSSIsCiAgImRlc2NyaXB0aW9uIjogIkFwbGlrYWNqYSBReXNkIEFJIiwgICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJpbWFnZV8xLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIiwKICAgICAgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIgogICAgfQogIF0sCiAgInN0YXJ0X3VybCI6ICIuaW5kZXguaHRtbCIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI0ZGOEMwMCIsCiAgInRoZW1lX2NvbG9yIjogIiNGRjhDMDAiCgp9Cgo=">
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
@@ -37,19 +37,18 @@
         }
 
         body {
-            background-color: #090a0f;
+            background-color: #000000;
             color: #e3e3e3;
             height: 100vh;
             display: flex;
             overflow: hidden;
-            background-image: url('image_1.png'); /* Opcjonalne tło o niskiej przezroczystości */
+            background-image: url('image_1.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            opacity: 0.98; /* Nieznaczna przezroczystość dla efektu tła */
+            opacity: 0.98;
         }
 
-        /* Overlay dla menu mobilnego */
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -66,7 +65,6 @@
             display: block;
         }
 
-        /* Sidebar Desktop & Mobile */
         aside {
             width: 280px;
             background: linear-gradient(180deg, #111319 0%, #0d0e12 100%);
@@ -246,7 +244,6 @@
             color: #8e918f;
         }
 
-        /* Main Panel */
         main {
             flex: 1;
             display: flex;
@@ -254,7 +251,7 @@
             justify-content: space-between;
             align-items: center;
             position: relative;
-            background-color: transparent; /* Zmieniono tło na przezroczyste, aby widzieć tło body */
+            background-color: transparent;
             height: 100%;
             width: 100%;
         }
@@ -342,7 +339,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            background: rgba(9, 10, 15, 0.7); /* Dodano półprzezroczyste tło kontenera czatu */
+            background: rgba(9, 10, 15, 0.7);
             border-radius: 16px;
             margin-top: 10px;
             margin-bottom: 10px;
@@ -385,7 +382,6 @@
             transition: all 0.2s ease;
         }
 
-        /* Message Styles */
         .message {
             display: flex;
             flex-direction: column;
@@ -454,23 +450,22 @@
             border-radius: 8px;
         }
 
-        /* Input Controls - Mobilnie dostosowany pasek */
         .input-container {
             width: 100%;
             max-width: 880px;
             padding: 0 16px 16px 16px;
-            background: rgba(9, 10, 15, 0.7); /* Dodano półprzezroczyste tło kontenera wejścia */
+            background: rgba(9, 10, 15, 0.7);
             border-radius: 24px;
         }
 
         .input-box {
-            background-color: transparent; /* Tło przezroczyste, kontener nadrzędny ma tło */
+            background-color: transparent;
             border-radius: 24px;
             padding: 8px 12px 8px 18px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid transparent; /* Usunięto obramowanie, kontener nadrzędny ma tło */
+            border: 1px solid transparent;
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
@@ -523,7 +518,6 @@
             font-weight: bold;
         }
 
-        /* Dedykowane style pod Mobile / Telefony */
         @media (max-width: 768px) {
             aside {
                 position: fixed;
@@ -724,7 +718,6 @@
         }
 
         function setupPWA() {
-            // Zezwalaj na instalację PWA tylko na urządzeniach mobilnych
             if (!isMobileDevice) return;
 
             window.addEventListener('beforeinstallprompt', (e) => {
@@ -801,6 +794,26 @@
                 sendMessage();
             }
         }
+
+        // Globalna funkcja zapisywania projektu lokalnie
+        window.saveCurrentProject = function(firstText) {
+            if (!currentChatId) {
+                currentChatId = 'proj_' + Date.now();
+                const title = firstText.length > 25 ? firstText.substring(0, 25) + '...' : firstText;
+                savedChats.unshift({
+                    id: currentChatId,
+                    title: title,
+                    history: chatHistory
+                });
+            } else {
+                const existingIndex = savedChats.findIndex(c => c.id === currentChatId);
+                if (existingIndex !== -1) {
+                    savedChats[existingIndex].history = chatHistory;
+                }
+            }
+            localStorage.setItem('QYSD_PROJECTS', JSON.stringify(savedChats));
+            renderChatsList();
+        };
 
         async function sendMessage() {
             const input = document.getElementById('user-input');
@@ -922,7 +935,7 @@
         }
     </script>
 
-    <!-- Moduł Firebase (POPUP) -->
+    <!-- Moduł Firebase (POPUP & Sync) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
@@ -965,25 +978,40 @@
             }
         };
 
+        // Nadpisanie zapisywania dla zalogowanego użytkownika (synchronizacja z Firebase)
+        const localSave = window.saveCurrentProject;
+        window.saveCurrentProject = async function(firstText) {
+            localSave(firstText);
+            if (currentUser) {
+                try {
+                    await setDoc(doc(db, "users", currentUser.uid), {
+                        projects: savedChats,
+                        lastUpdated: new Date().toISOString()
+                    }, { merge: true });
+                } catch (e) {
+                    console.error("Błąd zapisu w chmurze:", e);
+                }
+            }
+        };
+
         onAuthStateChanged(auth, async (user) => {
             currentUser = user;
             if (user) {
                 document.getElementById('user-name').textContent = user.displayName;
                 document.getElementById('user-avatar').textContent = user.displayName.charAt(0).toUpperCase();
-                document.getElementById('user-status').textContent = "Zalogowano (Chmura)";
-                
-                const greeting = document.getElementById('greeting-title');
-                if (greeting) greeting.textContent = `Siema ${user.displayName.split(' ')[0]}! Co dzisiaj tworzymy?`;
+                document.getElementById('user-status').textContent = "Zalogowano";
 
+                // Wczytaj dane z Firebase Firestore
                 try {
                     const docRef = doc(db, "users", user.uid);
                     const docSnap = await getDoc(docRef);
-                    if (docSnap.exists() && docSnap.data().chats) {
-                        savedChats = docSnap.data().chats;
+                    if (docSnap.exists() && docSnap.data().projects) {
+                        savedChats = docSnap.data().projects;
+                        localStorage.setItem('QYSD_PROJECTS', JSON.stringify(savedChats));
                         renderChatsList();
                     }
-                } catch (err) {
-                    console.error("Błąd bazy danych:", err);
+                } catch (e) {
+                    console.error("Błąd pobierania z chmury:", e);
                 }
             } else {
                 document.getElementById('user-name').textContent = "Zaloguj z Google";
@@ -991,29 +1019,6 @@
                 document.getElementById('user-status').textContent = "Kliknij, aby połączyć";
             }
         });
-
-        window.saveCurrentProject = async function(firstQuery) {
-            if (!currentChatId) {
-                currentChatId = Date.now().toString();
-                const title = firstQuery.length > 25 ? firstQuery.substring(0, 25) + '...' : firstQuery;
-                savedChats.unshift({ id: currentChatId, title: title, history: chatHistory });
-            } else {
-                const project = savedChats.find(c => c.id === currentChatId);
-                if (project) project.history = chatHistory;
-            }
-            
-            renderChatsList();
-
-            if (currentUser) {
-                try {
-                    await setDoc(doc(db, "users", currentUser.uid), { chats: savedChats }, { merge: true });
-                } catch (err) {
-                    console.error("Błąd zapisu w Firestore:", err);
-                }
-            } else {
-                localStorage.setItem('QYSD_PROJECTS', JSON.stringify(savedChats));
-            }
-        };
     </script>
 </body>
 </html>
