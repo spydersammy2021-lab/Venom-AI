@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Qysd AI Premium</title>
+
+    <!-- Meta Tagi PWA -->
+    <meta name="theme-color" content="#FF8C00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Qysd AI">
+
+    <!-- Ikony aplikacji (dla iOS/Safari i starszych przeglądarek) -->
+    <link rel="apple-touch-icon" href="image_1.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="image_1.png">
+    
+    <!-- Dane Manifestu PWA osadzone jako Data URL dla prostoty -->
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJkZWZhdWx0X2xvY2FsZSI6ICJwbCIsCiAgIm5hbWUiOiAiUXlzZCBABSIsCiAgInNob3J0X25hbWUiOiAiUXlzZCBBSSIsCiAgImRlc2NyaXB0aW9uIjogIkFwbGlrYWNqYSBReXNkIEFJIiw  iaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiaW1hZ2VfMS5wbmciLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0KICBdLAogICJzdGFydF91cmwiOiAiLmluZGV4Lmh0bWwiLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGRjhDMDAiLAogICJ0aGVtZV9jb2xvciI6ICIjRkY4QzAwIgp9Cgo=">
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
@@ -28,6 +42,11 @@
             height: 100vh;
             display: flex;
             overflow: hidden;
+            background-image: url('image_1.png'); /* Opcjonalne tło o niskiej przezroczystości */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.98; /* Nieznaczna przezroczystość dla efektu tła */
         }
 
         /* Overlay dla menu mobilnego */
@@ -235,7 +254,7 @@
             justify-content: space-between;
             align-items: center;
             position: relative;
-            background-color: #090a0f;
+            background-color: transparent; /* Zmieniono tło na przezroczyste, aby widzieć tło body */
             height: 100%;
             width: 100%;
         }
@@ -323,6 +342,10 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            background: rgba(9, 10, 15, 0.7); /* Dodano półprzezroczyste tło kontenera czatu */
+            border-radius: 16px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .hero-section {
@@ -436,16 +459,18 @@
             width: 100%;
             max-width: 880px;
             padding: 0 16px 16px 16px;
+            background: rgba(9, 10, 15, 0.7); /* Dodano półprzezroczyste tło kontenera wejścia */
+            border-radius: 24px;
         }
 
         .input-box {
-            background-color: #12151e;
+            background-color: transparent; /* Tło przezroczyste, kontener nadrzędny ma tło */
             border-radius: 24px;
             padding: 8px 12px 8px 18px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid #202636;
+            border: 1px solid transparent; /* Usunięto obramowanie, kontener nadrzędny ma tło */
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
