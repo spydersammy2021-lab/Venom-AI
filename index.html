@@ -877,27 +877,26 @@
         }
     </script>
 
-    <!-- Moduł Firebase z logowaniem przez PRZEKIEROWANIE -->
+    <!-- Moduł Firebase (POPUP zamiast Redirect) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { 
             getAuth, 
             GoogleAuthProvider, 
-            signInWithRedirect, 
-            getRedirectResult, 
+            signInWithPopup, 
             signOut, 
             onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // !!! WKLEJ TUTAJ SWÓJ KOD Z FIREBASE !!!
         const firebaseConfig = {
-            apiKey: "TWOJ_API_KEY",
+            apiKey: "AIzaSyAq6IheT1ZGhqTTSGqJSc20kVcIyQO5t0o",
             authDomain: "qysd-ai.firebaseapp.com",
             projectId: "qysd-ai",
-            storageBucket: "qysd-ai.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
+            storageBucket: "qysd-ai.firebasestorage.app",
+            messagingSenderId: "827400134849",
+            appId: "1:827400134849:web:e789ef0888a80f2aecb440",
+            measurementId: "G-0TT331FMWV"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -907,19 +906,14 @@
 
         let currentUser = null;
 
-        // Odebranie wyniku po powrocie z oficjalnej strony Google
-        getRedirectResult(auth).then((result) => {
-            if (result && result.user) {
-                console.log("Pomyślnie zalogowano użytkownika:", result.user.displayName);
-            }
-        }).catch((err) => {
-            console.error("Błąd podczas logowania:", err);
-        });
-
-        // Kliknięcie w profil otworzy stronę logowania Google
-        document.getElementById('user-profile-btn').onclick = () => {
+        // Kliknięcie otworzy teraz płynne okienko Pop-Up z kontami Google
+        document.getElementById('user-profile-btn').onclick = async () => {
             if (!currentUser) {
-                signInWithRedirect(auth, provider);
+                try {
+                    await signInWithPopup(auth, provider);
+                } catch (error) {
+                    console.error("Błąd podczas logowania popup:", error);
+                }
             } else {
                 if (confirm("Czy chcesz się wylogować z konta Google?")) {
                     signOut(auth);
@@ -927,7 +921,7 @@
             }
         };
 
-        // Automatyczne sprawdzanie zalogowania
+        // Automatyczne sprawdzanie zalogowania i zmiana profilu
         onAuthStateChanged(auth, async (user) => {
             currentUser = user;
             if (user) {
@@ -938,12 +932,16 @@
                 const greeting = document.getElementById('greeting-title');
                 if (greeting) greeting.textContent = `Siema ${user.displayName.split(' ')[0]}! Co dzisiaj tworzymy?`;
 
-                // Pobranie projektów z bazy w chmurze
-                const docRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists() && docSnap.data().chats) {
-                    savedChats = docSnap.data().chats;
-                    renderChatsList();
+                // Pobranie projektów z bazy Firestore
+                try {
+                    const docRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists() && docSnap.data().chats) {
+                        savedChats = docSnap.data().chats;
+                        renderChatsList();
+                    }
+                } catch (err) {
+                    console.error("Błąd pobierania bazy:", err);
                 }
             } else {
                 document.getElementById('user-name').textContent = "Zaloguj z Google";
@@ -952,7 +950,7 @@
             }
         });
 
-        // Automatyczny zapis historii do bazy
+        // Automatyczny zapis historii do bazy w chmurze
         window.saveCurrentProject = async function(firstQuery) {
             if (!currentChatId) {
                 currentChatId = Date.now().toString();
@@ -966,7 +964,11 @@
             renderChatsList();
 
             if (currentUser) {
-                await setDoc(doc(db, "users", currentUser.uid), { chats: savedChats }, { merge: true });
+                try {
+                    await setDoc(doc(db, "users", currentUser.uid), { chats: savedChats }, { merge: true });
+                } catch (err) {
+                    console.error("Błąd zapisu w Firestore:", err);
+                }
             } else {
                 localStorage.setItem('QYSD_PROJECTS', JSON.stringify(savedChats));
             }
